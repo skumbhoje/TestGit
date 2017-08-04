@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		<mapping class="com.param.spring_websocket.modal.DoctorMst"></mapping>
+		<!-- <mapping class="com.param.spring_websocket.modal.MsgMst"></mapping>
+		<mapping class="com.param.spring_websocket.modal.MsgTypeMst"></mapping>
+		<mapping class="com.param.spring_websocket.modal.PatientDocMppr"></mapping>
+		<mapping class="com.param.spring_websocket.modal.PatientMst"></mapping>
+		<mapping class="com.param.spring_websocket.modal.PatientStaffMppr"></mapping>
+		<mapping class="com.param.spring_websocket.modal.RegistrationBean"></mapping>
+		<mapping class="com.param.spring_websocket.modal.StaffDocMppr"></mapping>
+		<mapping class="com.param.spring_websocket.modal.StaffMst"></mapping>
+		<mapping class="com.param.spring_websocket.modal.SymbolMst"></mapping>
+		<mapping class="com.param.spring_websocket.modal.UserTypeMst"></mapping> -->
+		
+		
+	</session-factory>
+</hibernate-configuration>

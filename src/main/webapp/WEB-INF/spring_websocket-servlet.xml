@@ -1,0 +1,79 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+   xmlns:context="http://www.springframework.org/schema/context"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:p="http://www.springframework.org/schema/p"
+   xsi:schemaLocation="
+   http://www.springframework.org/schema/beans     
+   http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+   http://www.springframework.org/schema/context 
+   http://www.springframework.org/schema/context/spring-context-3.0.xsd
+   http://www.springframework.org/schema/mvc
+   http://www.springframework.org/schema/mvc/spring-mvc.xsd
+   http://www.springframework.org/schema/tx 
+   http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+   >
+
+ <context:component-scan base-package="com.param.spring_websocket" />
+   
+	<mvc:annotation-driven/>
+
+	<beans:bean id="namingStrategy" class="org.hibernate.cfg.ImprovedNamingStrategy" />
+
+   <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/view/" />
+      <property name="suffix" value=".jsp" />
+   </bean>
+   
+   <mvc:resources mapping="/resources/**" location="/resources/"  
+	cache-period="31556926"/>
+	
+	<beans:bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+			<beans:property name="sessionFactory" ref="sessionFactory" />
+		</beans:bean>
+		
+		<tx:annotation-driven transaction-manager="transactionManager" />
+		
+        <beans:bean id="sessionFactory" name="hsqlSessionFactory"
+			class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+			p:configLocation="classpath:hibernate.cfg.xml"
+			p:hibernateProperties-ref="hibernateProperties" p:dataSource-ref="dataSource"
+			p:namingStrategy-ref="namingStrategy">
+		</beans:bean>
+	
+	<!-- DATABASE CONNECTION -->
+	
+	<bean id="dataSource"
+		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/messagin_app_db0.1" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
+	
+	<!-- Database Property -->
+		<beans:bean id="hibernateProperties"
+			class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+			<beans:property name="properties">
+				<beans:props>
+					<!-- debug/loggin props -->
+					<beans:prop key="hibernate.show_sql">${hibernate.show_sql}</beans:prop>
+					<beans:prop key="hibernate.formate_sql">false</beans:prop>
+					<beans:prop key="hibernate.user_sql_comments">false</beans:prop>
+					<beans:prop key="hibernate.connection.characterEncoding">utf8</beans:prop> 
+					<beans:prop key="hibernate.transaction.factory_class">org.hibernate.transaction.JDBCTransactionFactory
+					</beans:prop>
+					<beans:prop key="hibernate.dialect">${hibernate.dialect}</beans:prop>
+					<beans:prop key="hibernate.cache.provider_class">org.hibernate.cache.NoCacheProvider
+					</beans:prop>
+				<!-- 	<beans:prop key="hibernate.hbm2ddl.auto">update</beans:prop> -->
+					<!-- <beans:prop key="hibernate.current_session_context_class">thread</beans:prop> -->
+				</beans:props>
+			</beans:property>
+		</beans:bean>
+	
+
+</beans>
